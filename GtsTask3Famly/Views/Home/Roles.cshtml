@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewData["Title"] = "Roles";
+}
+@model IEnumerable<RelRole>
+
+    <div class="row">
+        @if (TempData["addRole"] != null)
+        {
+            <div class="col-12 my-2">
+                <p class="alert alert-success">New Role Added</p>
+            </div>
+        }
+        @if (TempData["removeRole"] != null)
+        {
+            <div class="col-12 my-2">
+                <p class="alert alert-success">Role deleted</p>
+            </div>
+        }
+
+        <div class="col-12 mb-5">
+            <div class="w-100 d-flex justify-content-end">
+                <a asp-action="addRole" class="btn btn-success">Add new role</a>
+            </div>
+            
+
+        </div>
+        <div class="col-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Delete</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td><a class="btn btn-danger" asp-controller="home" asp-action="removeRole" asp-route-id="@item.Id">Delete</a></td>
+                        </tr>
+                    }
+
+
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+

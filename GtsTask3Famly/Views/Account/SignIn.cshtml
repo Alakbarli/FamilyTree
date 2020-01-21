@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewData["Title"] = "Sign In";
+}
+@{
+    @if (TempData["update"] != null)
+    {
+        <div class="col-12 my-2">
+            <p class="alert alert-success">Your password was successfully changed.</p>
+        </div>
+    }
+}
+@model GtsTask3Famly.ViewModel.SignInVM
+<div class="row justify-content-center">
+    <div class="col-5">
+
+        <form method="post" class="px-4 py-3">
+            <div class="form-group">
+                <label asp-for="Email">Email address</label>
+                <input type="email" class="form-control" asp-for="Email" placeholder="email@example.com">
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Password">Password</label>
+                <input type="password" class="form-control" asp-for="Password" placeholder="Password">
+            </div>
+            <div class="text-danger" asp-validation-summary="All"></div>
+            <button type="submit" class="btn btn-primary">Sign in</button>
+        </form>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" asp-controller="account" asp-action="signup">New around here? Sign up</a>
+        <a class="dropdown-item" asp-controller="account" asp-action="forgotpassword">Forgot password?</a>
+    </div>
+</div>

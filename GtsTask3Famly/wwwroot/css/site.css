@@ -1,0 +1,247 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+.logo a {
+    transition: 0.3s all ease-in-out;
+    /*position: absolute;
+    bottom: 15px;
+    left: 30px;*/
+}
+.logo a:hover{text-decoration:none;
+              
+              transform:scale(1.05);
+
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: rgba(252, 218, 252, 0.26);
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+}
+
+
+    .logo h1 {
+        font-size: 52px;
+        color: purple;
+        font-weight: 700;
+    }
+    input,select{
+        height:40px;
+        display:inline-block;
+        width:100%;
+    }
+    input{
+        text-indent:15px;
+    }
+    select{
+        padding:0px 15px;
+    }
+#addPhoto {
+    height: 40px;
+    background-color: purple;
+    display: flex;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+}
+#profilePhoto{
+    display:flex;
+    
+ 
+    width:100%;
+    margin:10px 0px;
+}
+#profilePhoto img{
+    object-fit:cover;
+    width:100%;
+   
+}
+#currentProfilePhoto {
+    width: 100%;
+   
+  
+   
+ 
+}
+#currentProfilePhoto img{
+    object-fit: cover;
+    width: 100%;
+   
+    max-width:100%;
+}
+.personImageIndex {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+.profileInfoPhoto {
+    object-fit: cover;
+    width: 100%;
+    max-width: 100%;
+}
+.profileInfo p{
+    margin-top:5px;
+    color:purple;
+
+}
+.profileInfo span {
+    color:black;
+    font-style:italic;
+}
+.relation-profile {
+    background-color: #f7c1f7;
+    text-align:center;
+    border:1px solid lightgray;
+    box-shadow:0px 0px 5px lightgray;
+}
+.relative-role-heading p{
+    font-size:28px;
+    color:purple;
+    font-weight:bold;
+    text-align:center;
+}
+.relation-profile .image {
+    overflow: hidden;
+}
+.relation-profile img{
+    overflow:hidden;
+    object-fit:cover;
+    width:100%;
+    height:150px;
+    transition:0.5s all ease;
+}
+    .relation-profile img:hover{
+        transform:scale(1.1);
+        
+
+        
+    }
+.relation-profile .relation-info{
+    margin-top:3px;
+}
+    .relation-profile .relation-info a {
+        font-size: 25px;
+        font-weight: bold;
+        color: black;
+        text-decoration: none;
+        transition: 0.3s all ease;
+        display: block;
+        text-align: center;
+    }
+    .relation-profile .relation-info a:hover {
+        color: purple;
+        text-decoration: none;
+        
+    }
+.relation-profile .relation-info span{
+    font-size:15px;
+    color:black;
+    }
+.relation-profile .relation-delete a{
+    margin-top:5px;
+    width:100%;
+   background-color:purple;
+   color:white;
+    font-size:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:30px;
+
+    transition:0.3s all ease;
+}
+    .relation-profile .relation-delete a:hover {
+      background-color:red;
+      text-decoration:none;
+
+    }
+.logo {
+   width: 100%;
+    display: flex;
+    align-items: end;
+}
+td{
+   vertical-align:baseline!important;
+  
+}
+th,td{
+    text-align:center;
+}
+.realuser {
+    position: absolute;
+    color: deepskyblue;
+    background-color: white;
+    display: inline-block;
+    padding: 2px;
+}
+.realuser-2x {
+    right: 8px;
+    bottom: 8px;
+    font-size: 30px
+}
+.realuser-3x {
+    right:7px;
+    bottom:7px;
+    font-size: 35px
+}
+.realuser-1x {
+    right: 1px;
+    background-color: transparent;
+    bottom: -41px;
+    font-size: 23px;
+}
+.realuser-4x {
+    right: 15px;
+    bottom: 15px;
+    font-size: 40px
+}
+

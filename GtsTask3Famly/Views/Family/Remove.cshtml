@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewData["Title"] = "Remove";
+}
+
+@model Family
+<div class="row">
+    <div class="col-12">
+        <p class="alert alert-danger">
+            Are you sure you want to delete @Model.Name @Model.Name
+        </p>
+        <a class="btn btn-danger" asp-action="delete" asp-controller="family" asp-route-id="@Model.Id">Yes</a>
+        <a class="btn btn-primary" asp-controller="family" asp-action="index">No</a>
+
+    </div>
+</div>

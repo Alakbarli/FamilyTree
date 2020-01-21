@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "Add Role";
+}
+
+@model RelRole
+<div class="row">
+    <div class="col-12">
+        <form method="POST">
+            <div class="row justify-content-center align-items-end">
+                 <div class="col-5 my-2">
+                    <label>Role Name</label>
+                    <input placeholder="Name" asp-for="@Model.Name" />
+                    <span class="text-danger" asp-validation-for="@Model.Name"></span>
+                </div>
+               
+                
+                <div class="col-2 my-2">
+                    <input class="btn btn-success" type="submit" value="Add" />
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+
+

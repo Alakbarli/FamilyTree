@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewData["Title"] = "Sign up";
+}
+
+@model GtsTask3Famly.ViewModel.SignUpVM
+<div class="row justify-content-center">
+    <div class="col-5">
+        <div class="text-danger" asp-validation-summary="All">
+
+        </div>
+        <form method="post" class="px-4 py-3">
+            <div class="form-group">
+                <label asp-for="Firtsname">Firstname</label>
+                <input class="form-control" asp-for="Firtsname" placeholder="firstname">
+                <span asp-validation-for="Firtsname"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Lastname">Lastname</label>
+                <input class="form-control" asp-for="Lastname" placeholder="lastname">
+                <span asp-validation-for="Lastname"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email">Email address</label>
+                <input type="email" class="form-control" asp-for="Email" placeholder="email@example.com">
+                <span asp-validation-for="Email"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password">Password</label>
+                <input type="password" class="form-control" asp-for="Password" placeholder="Password">
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword">Confirm password</label>
+                <input type="password" class="form-control" asp-for="ConfirmPassword" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <label asp-for="BirthDate"></label>
+                <input type="date" class="form-control" asp-for="BirthDate" placeholder="email@example.com">
+                <span asp-validation-for="BirthDate"></span>
+            </div>
+            <div class="form-group">
+                <div class="form-check form-check-inline">
+                    <input style="width:14px" class="form-check-input" type="radio" asp-for="GenderId" value="1">
+                    <label class="form-check-label">Male</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input style="width:14px" class="form-check-input" type="radio" asp-for="GenderId" value="2">
+                    <label class="form-check-label">Female</label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Sign up</button>
+        </form>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" asp-controller="account" asp-action="signin">Already have an account? Sign in</a>
+        <a class="dropdown-item" asp-controller="account" asp-action="forgotpassword">Forgot password?</a>
+    </div>
+</div>
+
+@section Scripts{
+  
+    <partial name="_ValidationScriptsPartial" />
+}
+

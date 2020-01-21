@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewData["Title"] = "Edit Person";
+}
+
+
+@model Person
+<div class="row">
+    <div class="col-12">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-12">
+                    <div asp-validation-summary="All">
+
+                    </div>
+                </div>
+                <input type="hidden" id="@Model.Id" />
+                <div class="col-6 my-2">
+                    <label>FirstName</label>
+                    <input placeholder="Firstname" asp-for="@Model.Firstname" />
+                    <span class="text-danger" asp-validation-for="@Model.Firstname"></span>
+                </div>
+                <div class="col-6 my-2">
+                    <label>LastName</label>
+                    <input placeholder="Firstname" asp-for="LastName" />
+                    <span class="text-danger" asp-validation-for="LastName"></span>
+                </div>
+                <div class="col-6 my-2">
+                    <label>Age</label>
+                    <input min="0" placeholder="Firstname" asp-for="Age" />
+                    <span class="text-danger" asp-validation-for="Age"></span>
+                </div>
+                <div class="col-6 my-2">
+                    <label>Role</label>
+                    <select asp-for="GenderId" asp-items="@(new SelectList(ViewBag.Genders, "Id", "Name"))">
+                    </select>
+                    <span class="text-danger" asp-validation-for="GenderId"></span>
+                </div>
+                <div class="col-6 my-2">
+                    <div class="row">
+                        <div class="col-6">
+                            <label>Current Image</label>
+                            <input type="hidden" value="@Model.Photo" />
+                            <div id="currentProfilePhoto">
+                                <img src="~/image/@Model.Photo" />
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label>New Photo</label>
+                            <div id="profilePhoto">
+                                <img src="" />
+                            </div>
+                            <input class="d-none" asp-for="@Model.PhotoFile" />
+                            <span id="addPhoto">Add photo</span>
+                            <span class="text-danger" asp-validation-for="PhotoFile"></span>
+                        </div>
+                    </div>
+                  
+                  
+                </div>
+                
+                <div class="col-12">
+                    <div class="row justify-content-end">
+                        <div class="col-3 my-2">
+                            <input class="btn btn-success" type="submit" value="Edit" />
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+
+

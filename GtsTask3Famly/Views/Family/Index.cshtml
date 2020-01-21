@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Families";
+}
+@model IEnumerable<Family>
+    <div class="row">
+        @if (TempData["add"] != null)
+        {
+            <div class="col-12 my-2">
+                <p class="alert alert-success">New Family Added</p>
+            </div>
+        }
+        @if (TempData["edit"] != null)
+        {
+            <div class="col-12 my-2">
+                <p class="alert alert-success">Family Edited</p>
+            </div>
+        }
+        @if (TempData["remove"] != null)
+        {
+            <div class="col-12 my-2">
+                <p class="alert alert-danger">Family deleted</p>
+            </div>
+        }
+    </div>
+    <div class="row">
+        <div class="col-12 mb-5">
+            <div class="d-flex justify-content-end">
+                <div>
+                    @*<a asp-action="create" asp-controller="Family" class="btn btn-success">Add new family</a>*@
+                    @*<a asp-action="roles" class="btn btn-primary">Roles</a>*@
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+<div class="row">
+    <div class="col-12">
+       <h2>Family</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Photo</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Member count</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <a asp-controller="Family" asp-action="detail" asp-route-id="@item.Id">
+                                    <img class="personImageIndex" src="~/image/@item.Logo" />
+                                </a>
+                            </td>
+                            <td><a asp-controller="Family" asp-action="Detail" asp-route-id="@item.Id"> @item.Name</a></td>
+                            <td><a asp-controller="Family" asp-action="Detail" asp-route-id="@item.Id">@item.Users.GroupBy(x=>x.RelatedUserId).Select(x=>x.First()).Count().ToString()</a></td>
+                            <td>
+                                <a asp-controller="Family" asp-action="Detail" asp-route-id="@item.Id" class="btn btn-success"><i class="fad fa-eye"></i></a>
+                                <a asp-controller="Family" asp-action="edit" asp-route-id="@item.Id" class="btn btn-warning"><i class="fad fa-pencil-ruler"></i></a>
+                                @*<a asp-controller="Family" asp-action="delete" asp-route-id="@item.Id" class="btn btn-danger usePopup"><i class="fad fa-trash-alt"></i></a>*@
+                            </td>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                    }
+
+
+
+                </tbody>
+            </table>
+        
+
+        @if (TempData["noRole"] != null)
+        {
+            <div class="col-12 my-2">
+                <p class="alert alert-secondary">Person not found</p>
+            </div>
+        }
+    </div>
+</div>
+
+    
+
+

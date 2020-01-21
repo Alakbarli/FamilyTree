@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewData["Title"] = "Profile";
+
+}
+
+@model GtsTask3Famly.Models.User
+
+<div class="row align-items-start">
+   
+    <div class="col-4">
+        <img class="profileInfoPhoto" src="~/image/@Model.Avatar" />
+    </div>
+    <div class="col-4 profileInfo">
+
+        <h1>@Model.Firstname @Model.Lastname</h1>
+        <p>Birthdate: <span>@Model.BirthDate.ToString("dd/MM/yyyy")</span></p>
+        <p>Gender: <span>@Model.Gender.Name</span></p>
+        <p>Email: <span>@Model.Email</span></p>
+    </div>
+    
+    
+</div>
+
+
+

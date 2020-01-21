@@ -1,0 +1,207 @@
+﻿
+@{
+    ViewData["Title"] = "Detail";
+}
+
+
+@{
+    ViewData["Title"] = "Person Detail";
+}
+@model GtsTask3Famly.ViewModel.VM
+<div class="row align-items-start">
+    <div class="col-12 my-3">
+        <a class="btn btn-secondary" asp-controller="family" asp-action="index"><i class="fas fa-chevron-left"></i> All Families</a>
+    </div>
+    <div class="col-2">
+        <img class="profileInfoPhoto" src="~/image/@Model.Family.Logo" />
+    </div>
+    <div class="col-4 profileInfo">
+
+        <p>Family name:</p> <h1>@Model.Family.Name</h1>
+
+    </div>
+    @if (Model.Relationships.Count() == 0)
+    {
+        <div class="col-4">
+            <div class="row">
+                <div class="col-12">
+                    <form method="post" asp-controller="family" asp-action="firstperson">
+                        <div class="row align-items-md-start">
+                            <div class="col-6">
+                                <input name="FamilyId" type="hidden" value="@Model.Family.Id" />
+                                <label>Person</label>
+                                <select name="PersonId" asp-items="@(new SelectList(Model.People,"Id","Firstname"))">
+                                    <option>
+                                        Select Person
+                                    </option>
+                                </select>
+                                <span class="text-danger" asp-validation-for="@Model.Relationship.PersonId"></span>
+                            </div>
+                            <div class="col-12">
+                                <label style="opacity:0">d</label>
+                                <input class="btn btn-success" type="submit" value="Add first member" />
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+                <div class="col-12">
+                    <hr />
+
+                    @if (TempData["addRelation"] != null)
+                    {
+                        <div class="row">
+                            <div class="col-12 my-2">
+                                <p class="alert alert-success">new Relationship added</p>
+                            </div>
+                        </div>
+
+                    }
+                    @if (TempData["deleteRelation"] != null)
+                    {
+                        <div class="row">
+                            <div class="col-12 my-2">
+                                <p class="alert alert-warning">Relationship deleted</p>
+                            </div>
+                        </div>
+
+                    }
+                    @if (TempData["Alredy"] != null)
+                    {
+                        <div class="row">
+                            <div class="col-12 my-2">
+                                <p class="alert alert-danger">This Relationship alredy exist</p>
+                            </div>
+                        </div>
+
+                    }
+                    @if (ViewBag.Relation != null)
+                    {
+                        <div class="row">
+                            <div class="col-12 my-2">
+                                <p class="alert alert-danger">@ViewBag.Relation</p>
+                            </div>
+                        </div>
+
+                    }
+
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="col-12">
+        <hr />
+    </div>
+
+
+</div>
+<div class="row">
+    <div class="col-12 mt-2">
+        <h2>Members</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Photo</th>
+                    <th scope="col">Firstname</th>
+                    <th scope="col">Lastname</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Relationships)
+                {
+                    <tr>
+                        <td>
+                            <a class="position-relative" asp-controller="family" asp-action="personDetail" asp-route-id="@item.RelatedUserId" asp-route-familyId="@Model.Family.Id">
+                                <img class="personImageIndex" src="~/image/@item.RelatedUser.Photo" />
+                                @if (item.RelatedUser.UserToPerson!= null)
+                                {
+                                    <i class="realuser realuser-1x fas fa-shield-check" title="This person is confirmed"></i>
+                                }
+                            </a>
+                        </td>
+                        <td><a asp-controller="family" asp-action="personDetail" asp-route-id="@item.RelatedUserId" asp-route-familyId="@Model.Family.Id"> @item.RelatedUser.Firstname</a></td>
+                        <td><a asp-controller="family" asp-action="personDetail" asp-route-id="@item.RelatedUserId" asp-route-familyId="@Model.Family.Id">@item.RelatedUser.LastName</a></td>
+                        <td>@item.RelatedUser.Age</td>
+                        <td>@item.RelatedUser.Gender.Name</td>
+                        <td>
+                            @if (item.RelatedUser.UserToPerson == null)
+                            {
+                                <a asp-controller="account" asp-action="invate" asp-route-id="@item.RelatedUserId" asp-route-familyId="@Model.Family.Id" class="btn btn-info" title="Invate with Email"><i class="fal fa-user-plus"></i></a>
+                            }
+
+                            <a asp-controller="family" asp-action="personDetail" asp-route-id="@item.RelatedUserId" asp-route-familyId="@Model.Family.Id" class="btn btn-success"><i class="fad fa-eye"></i></a>
+                            <a asp-controller="home" asp-action="deletePerson" asp-route-id="@item.RelatedUserId" asp-route-familyId="@Model.Family.Id" class="btn btn-danger usePopup"><i class="fad fa-trash-alt"></i></a>
+                        </td>
+
+                    </tr>
+                }
+
+
+
+            </tbody>
+        </table>
+        @if (TempData["noRole"] != null)
+        {
+            <div class="col-12 my-2">
+                <p class="alert alert-secondary">Person not found</p>
+            </div>
+        }
+    </div>
+
+</div>
+@{
+    if (ViewBag.familyTree != null)
+    {
+        <div class="row">
+            <div class="col-12 text-center">
+                <h3>Family Tree</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div id="monitor" class="w-100">
+
+                    <div id="zoomin" class="arrows"><i class="far fa-search-plus"></i></div>
+                    <div id="zoomout" class="arrows"><i class="far fa-search-minus"></i></div>
+                    <div id="gotop" class="d-none arrows"><i class="fas fa-arrow-up"></i></div>
+                    <div id="goright" class="d-none arrows"><i class="fas fa-arrow-right"></i></div>
+                    <div id="gobottom" class="d-none arrows"><i class="fas fa-arrow-down"></i></div>
+                    <div id="goleft" class="d-none arrows"><i class="fas fa-arrow-left"></i></div>
+
+                    <div id="board">
+
+                        @Html.Raw(ViewBag.familyTree)
+                        <img id="srcPhoto" class="d-none" src="~/image/">
+                        <a id="urlPerson" class="d-none" asp-controller="family" asp-action="personDetail"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+
+@section Scripts{
+    <script>
+        $("#Relationship_PersonId").change(function () {
+            let id = $(this).val();
+            let personId = $("#Relationship_KindredId").val();
+            $.ajax({
+                url: "/Home/LoadRelation?id=" + id + "&personId=" + personId,
+                type: "POST",
+                success: function (res) {
+                    $("#Relationship_RoleId").html(res);
+                }
+            })
+        })
+    </script>
+}
+
+
+

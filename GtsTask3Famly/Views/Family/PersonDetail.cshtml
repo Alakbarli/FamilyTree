@@ -1,0 +1,433 @@
+﻿
+@{
+    ViewData["Title"] = "Person Detail";
+}
+
+@model GtsTask3Famly.ViewModel.VM
+<div class="row align-items-start">
+    <div class="col-12 my-3">
+        <a class="btn btn-secondary" asp-controller="family" asp-action="detail" asp-route-id="@Model.Family.Id"><i class="fas fa-chevron-left"></i> Back to family</a>
+    </div>
+    <div class="col-4">
+        <img class="profileInfoPhoto" src="~/image/@Model.Person.Photo" />
+    </div>
+    <div class="col-4 profileInfo">
+
+        <h1>@Model.Person.Firstname @Model.Person.LastName</h1>
+        <p>Age: <span>@Model.Person.Age years old</span></p>
+        <p>Gender: <span>@Model.Person.Gender.Name</span></p>
+    </div>
+    <div class="col-4">
+            <div class="row">
+                <div class="col-12">
+                     <form method="post" asp-controller="family" asp-action="PersonDetail">
+                        <div class="row align-items-md-start">
+                            <div class="col-6">
+                                <input asp-for="@Model.Relationship.RelatedUserId" type="hidden" value="@Model.Person.Id" />
+                                <input asp-for="@Model.Relationship.FamilyId" type="hidden" value="@Model.Family.Id" />
+                                <label>Person</label>
+                                <select asp-for="@Model.Relationship.PersonId" asp-items="@(new SelectList(Model.People,"Id","Firstname"))">
+                                    <option>
+                                        Select Person
+                                    </option>
+                                </select>
+                                <span class="text-danger" asp-validation-for="@Model.Relationship.PersonId"></span>
+                            </div>
+                            <div class="col-6">
+                                <label>Relation</label>
+                                <select asp-for="@Model.Relationship.RelRoleId">
+                                    <option>
+                                        Select Relation
+                                    </option>
+                                </select>
+                                <span class="text-danger" asp-validation-for="@Model.Relationship.RelRoleId"></span>
+
+                            </div>
+                            <div class="col-12">
+                                <label style="opacity:0">d</label>
+                                <input class="btn btn-success" type="submit" value="Add relationship" />
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+                <div class="col-12">
+                    <hr />
+
+                    @if (TempData["addRelation"] != null)
+                    {
+                        <div class="row">
+                            <div class="col-12 my-2">
+                                <p class="alert alert-success">new Relationship added</p>
+                            </div>
+                        </div>
+
+                    }
+                    @if (TempData["deleteRelation"] != null)
+                    {
+                        <div class="row">
+                            <div class="col-12 my-2">
+                                <p class="alert alert-warning">Relationship deleted</p>
+                            </div>
+                        </div>
+
+                    }
+                    @if (TempData["Alredy"] != null)
+                    {
+                        <div class="row">
+                            <div class="col-12 my-2">
+                                <p class="alert alert-danger">This Relationship alredy exist</p>
+                            </div>
+                        </div>
+
+                    }
+                    @if (ViewBag.Relation != null)
+                    {
+                        <div class="row">
+                            <div class="col-12 my-2">
+                                <p class="alert alert-danger">@ViewBag.Relation</p>
+                            </div>
+                        </div>
+
+                    }
+
+                </div>
+            </div>
+        </div>
+
+
+</div>
+<div class="row">
+    <div class="col-12 mt-2">
+        <hr />
+        <div class="row justify-content-center my-2">
+           
+            @if (Model.Relationships.Where(x => x.Role.Name.ToLower() == "husband" || x.Role.Name.ToLower() == "wife").Count() > 0)
+            {
+                <div class="col-12 mt-3">
+                    <div class="relative-role-heading">
+                        <p>
+                            Spouse
+                        </p>
+                    </div>
+                </div>
+                @foreach (var relation in Model.Relationships.Where(x => x.Role.Name.ToLower() == "husband" || x.Role.Name.ToLower() == "wife"))
+                {
+                    <div class="col-3">
+                        <div class="relation-profile">
+                            <div class="image">
+                                <img src="~/image/@relation.Person.Photo" />
+                            </div>
+                            <div class="relation-info">
+                                <a asp-controller="family" asp-action="persondetail" asp-route-id="@relation.PersonId" asp-route-familyId="@Model.Family.Id">
+                                    @relation.Person.Firstname @relation.Person.LastName
+                                </a>
+                                <span>@relation.Role.Name</span>
+                            </div>
+                            <div class="relation-delete">
+                                <a class="usePopup" asp-controller="family" asp-action="deleteRelation" asp-route-id="@relation.PersonId" asp-route-personId="@relation.RelatedUserId" asp-route-familyId="@Model.Family.Id">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="col-12">
+                    <hr />
+                </div>
+            }
+
+            @if (Model.Relationships.Where(x => x.Role.Name.ToLower() == "mother" || x.Role.Name.ToLower() == "father").Count() > 0)
+            {
+                <div class="col-12 mt-3">
+                    <div class="relative-role-heading">
+                        <p>
+                            Parents
+                        </p>
+                    </div>
+                </div>
+                @foreach (var relation in Model.Relationships.Where(x => x.Role.Name.ToLower() == "mother" || x.Role.Name.ToLower() == "father"))
+                {
+                    <div class="col-3">
+                        <div class="relation-profile">
+                            <div class="image">
+                                <img src="~/image/@relation.Person.Photo" />
+                            </div>
+                            <div class="relation-info">
+                                <a asp-controller="family" asp-action="persondetail" asp-route-id="@relation.PersonId" asp-route-familyId="@Model.Family.Id">
+                                    @relation.Person.Firstname @relation.Person.LastName
+                                </a>
+                                <span>@relation.Role.Name</span>
+                            </div>
+                            <div class="relation-delete">
+                                <a class="usePopup" asp-controller="family" asp-action="deleteRelation" asp-route-id="@relation.PersonId" asp-route-personId="@relation.RelatedUserId" asp-route-familyId="@Model.Family.Id">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="col-12">
+                    <hr />
+                </div>
+            }
+            @if (Model.Relationships.Where(x => x.Role.Name.ToLower() == "son" || x.Role.Name.ToLower() == "daughter").Count() > 0)
+            {
+                <div class="col-12 mt-3">
+                    <div class="relative-role-heading">
+                        <p>
+                            Children
+                        </p>
+                    </div>
+                </div>
+                @foreach (var relation in Model.Relationships.Where(x => x.Role.Name.ToLower() == "son" || x.Role.Name.ToLower() == "daughter"))
+                {
+                    <div class="col-3">
+                        <div class="relation-profile">
+                            <div class="image">
+                                <img src="~/image/@relation.Person.Photo" />
+                            </div>
+                            <div class="relation-info">
+                                <a asp-controller="family" asp-action="persondetail" asp-route-id="@relation.PersonId" asp-route-familyId="@Model.Family.Id">
+                                    @relation.Person.Firstname @relation.Person.LastName
+                                </a>
+                                <span>@relation.Role.Name</span>
+                            </div>
+                            <div class="relation-delete">
+                                <a class="usePopup" asp-controller="family" asp-action="deleteRelation" asp-route-id="@relation.PersonId" asp-route-personId="@relation.RelatedUserId" asp-route-familyId="@Model.Family.Id">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="col-12">
+                    <hr />
+                </div>
+
+            }
+         
+
+            @if (Model.Relationships.Where(x => x.Role.Name.ToLower() == "grandpa" || x.Role.Name.ToLower() == "grandma").Count() > 0)
+            {
+                <div class="col-12 mt-3">
+                    <div class="relative-role-heading">
+                        <p>
+                            Grandparents
+                        </p>
+                    </div>
+                </div>
+                @foreach (var relation in Model.Relationships.Where(x => x.Role.Name.ToLower() == "grandpa" || x.Role.Name.ToLower() == "grandma"))
+                {
+                    <div class="col-3">
+                        <div class="relation-profile">
+                            <div class="image">
+                                <img src="~/image/@relation.Person.Photo" />
+                            </div>
+                            <div class="relation-info">
+                                <a asp-controller="family" asp-action="persondetail" asp-route-id="@relation.PersonId" asp-route-familyId="@Model.Family.Id">
+                                    @relation.Person.Firstname @relation.Person.LastName
+                                </a>
+                                <span>@relation.Role.Name</span>
+                            </div>
+                            <div class="relation-delete">
+                                <a class="usePopup" asp-controller="family" asp-action="deleteRelation" asp-route-id="@relation.PersonId" asp-route-personId="@relation.RelatedUserId" asp-route-familyId="@Model.Family.Id">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="col-12">
+                    <hr />
+                </div>
+
+            }
+
+            @if (Model.Relationships.Where(x => x.Role.Name.ToLower() == "sister" || x.Role.Name.ToLower() == "brother").Count() > 0)
+            {
+                <div class="col-12 mt-3">
+                    <div class="relative-role-heading">
+                        <p>
+                            Sisters and Brothers
+                        </p>
+                    </div>
+                </div>
+                @foreach (var relation in Model.Relationships.Where(x => x.Role.Name.ToLower() == "sister" || x.Role.Name.ToLower() == "brother"))
+                {
+                    <div class="col-3">
+                        <div class="relation-profile">
+                            <div class="image">
+                                <img src="~/image/@relation.Person.Photo" />
+                            </div>
+                            <div class="relation-info">
+                                <a asp-controller="family" asp-action="persondetail" asp-route-id="@relation.PersonId" asp-route-familyId="@Model.Family.Id">
+                                    @relation.Person.Firstname @relation.Person.LastName
+                                </a>
+                                <span>@relation.Role.Name</span>
+                            </div>
+                            <div class="relation-delete">
+                                <a class="usePopup" asp-controller="family" asp-action="deleteRelation" asp-route-id="@relation.PersonId" asp-route-personId="@relation.RelatedUserId" asp-route-familyId="@Model.Family.Id">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="col-12">
+                    <hr />
+                </div>
+            }
+
+            @if (Model.Relationships.Where(x => x.Role.Name.ToLower() == "grandson" || x.Role.Name.ToLower() == "granddaughter").Count() > 0)
+            {
+                <div class="col-12 mt-3">
+                    <div class="relative-role-heading">
+                        <p>
+                            Grandchilren
+                        </p>
+                    </div>
+                </div>
+                @foreach (var relation in Model.Relationships.Where(x => x.Role.Name.ToLower() == "grandson" || x.Role.Name.ToLower() == "granddaughter"))
+                {
+                    <div class="col-3">
+                        <div class="relation-profile">
+                            <div class="image">
+                                <img src="~/image/@relation.Person.Photo" />
+                            </div>
+                            <div class="relation-info">
+                                <a asp-controller="family" asp-action="persondetail" asp-route-id="@relation.PersonId" asp-route-familyId="@Model.Family.Id">
+                                    @relation.Person.Firstname @relation.Person.LastName
+                                </a>
+                                <span>@relation.Role.Name</span>
+                            </div>
+                            <div class="relation-delete">
+                                <a class="usePopup" asp-controller="family" asp-action="deleteRelation" asp-route-id="@relation.PersonId" asp-route-personId="@relation.RelatedUserId" asp-route-familyId="@Model.Family.Id">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="col-12">
+                    <hr />
+                </div>
+
+            }
+
+            @if (Model.Relationships.Where(x => x.Role.Name.ToLower() == "aunt" || x.Role.Name.ToLower() == "uncle").Count() > 0)
+            {
+                <div class="col-12 mt-3">
+                    <div class="relative-role-heading">
+                        <p>
+                            Aunts and Uncles
+                        </p>
+                    </div>
+                </div>
+                @foreach (var relation in Model.Relationships.Where(x => x.Role.Name.ToLower() == "aunt" || x.Role.Name.ToLower() == "uncle"))
+                {
+                    <div class="col-3">
+                        <div class="relation-profile">
+                            <div class="image">
+                                <img src="~/image/@relation.Person.Photo" />
+                            </div>
+                            <div class="relation-info">
+                                <a asp-controller="family" asp-action="persondetail" asp-route-id="@relation.PersonId" asp-route-familyId="@Model.Family.Id">
+                                    @relation.Person.Firstname @relation.Person.LastName
+                                </a>
+                                <span>@relation.Role.Name</span>
+                            </div>
+                            <div class="relation-delete">
+                                <a class="usePopup" asp-controller="family" asp-action="deleteRelation" asp-route-id="@relation.PersonId" asp-route-personId="@relation.RelatedUserId" asp-route-familyId="@Model.Family.Id">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="col-12">
+                    <hr />
+                </div>
+
+            }
+
+            @if (Model.Relationships.Where(x => x.Role.Name.ToLower() == "niece" || x.Role.Name.ToLower() == "nephew").Count() > 0)
+            {
+                <div class="col-12 mt-3">
+                    <div class="relative-role-heading">
+                        <p>
+                            Nieces and Nephews
+                        </p>
+                    </div>
+                </div>
+                @foreach (var relation in Model.Relationships.Where(x => x.Role.Name.ToLower() == "niece" || x.Role.Name.ToLower() == "nephew"))
+                {
+                    <div class="col-3">
+                        <div class="relation-profile">
+                            <div class="image">
+                                <img src="~/image/@relation.Person.Photo" />
+                            </div>
+                            <div class="relation-info">
+                                <a asp-controller="family" asp-action="persondetail" asp-route-id="@relation.PersonId" asp-route-familyId="@Model.Family.Id">
+                                    @relation.Person.Firstname @relation.Person.LastName
+                                </a>
+                                <span>@relation.Role.Name</span>
+                            </div>
+                            <div class="relation-delete">
+                                <a class="usePopup" asp-controller="family" asp-action="deleteRelation" asp-route-id="@relation.PersonId" asp-route-personId="@relation.RelatedUserId" asp-route-familyId="@Model.Family.Id">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="col-12">
+                    <hr />
+                </div>
+
+            }
+
+            @if (Model.Relationships.Where(x => x.Role.Name.ToLower() == "cousin").Count() > 0)
+            {
+                <div class="col-12 mt-3">
+                    <div class="relative-role-heading">
+                        <p>
+                            Cousins
+                        </p>
+                    </div>
+                </div>
+                @foreach (var relation in Model.Relationships.Where(x => x.Role.Name.ToLower() == "cousin"))
+                {
+                    <div class="col-3">
+                        <div class="relation-profile">
+                            <div class="image">
+                                <img src="~/image/@relation.Person.Photo" />
+                            </div>
+                            <div class="relation-info">
+                                <a asp-controller="family" asp-action="persondetail" asp-route-id="@relation.PersonId" asp-route-familyId="@Model.Family.Id">
+                                    @relation.Person.Firstname @relation.Person.LastName
+                                </a>
+                                <span>@relation.Role.Name</span>
+                            </div>
+                            <div class="relation-delete">
+                                <a class="usePopup" asp-controller="family" asp-action="deleteRelation" asp-route-personId="@relation.RelatedUserId" asp-route-id="@relation.PersonId" asp-route-familyId="@Model.Family.Id">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="col-12">
+                    <hr />
+                </div>
+
+            }
+
+        </div>
+
+
+
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $("#Relationship_PersonId").change(function () {
+            let id = $(this).val();
+            let personId = $("#Relationship_RelatedUserId").val();
+            $.ajax({
+                url: "/Home/LoadRelation?id=" + id+"&personId="+personId,
+                type: "POST",
+                success: function (res) {
+                    $("#Relationship_RelRoleId").html(res);
+                }
+            })
+        })
+    </script>
+}
+
+
+

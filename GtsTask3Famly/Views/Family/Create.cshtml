@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+}
+
+@model Family
+<div class="row">
+    <div class="col-12">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-12">
+                    <div asp-validation-summary="All">
+
+                    </div>
+                </div>
+                <div class="col-7 my-2">
+                    <div class="row">
+                        <div class="col-6">
+                            <label>Name</label>
+                            <input placeholder="Firstname" asp-for="@Model.Name" />
+                            <span class="text-danger" asp-validation-for="@Model.Name"></span>
+                        </div>
+                    </div>
+                  
+                </div>
+               <div class="col-7 my-2">
+                   <div class="row">
+                       <div class="col-6">
+                           <label>Photo</label>
+                           <div id="profilePhoto">
+                               <img class="d-none" src="" />
+                           </div>
+                           <input class="d-none" asp-for="@Model.LogoFile" />
+                           <span id="addPhoto">Add photo</span>
+                           <span class="text-danger" asp-validation-for="LogoFile"></span>
+                       </div>
+                   </div>
+                   
+                </div>
+
+                <div class="col-7">
+                    <div class="row ">
+                        <div class="col-6 my-2">
+                            <input class="btn btn-success" type="submit" value="Add" />
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+
+

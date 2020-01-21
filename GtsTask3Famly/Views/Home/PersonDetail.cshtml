@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewData["Title"] = "Person Detail";
+}
+@model GtsTask3Famly.ViewModel.VM
+<div class="row align-items-start">
+    <div class="col-4">
+        <img class="profileInfoPhoto" src="~/image/@Model.Person.Photo" />
+        <i  class="realuser realuser-4x fas fa-shield-check" title="This person is confirmed"></i>
+    </div>
+    <div class="col-4 profileInfo position-relative">
+
+        <h1>@Model.Person.Firstname @Model.Person.LastName</h1>
+        <p>Age: <span>@Model.Person.Age years old</span></p>
+        <p>Gender: <span>@Model.Person.Gender.Name</span></p>
+       
+    </div>
+    
+       
+    
+
+</div>
+
+<div class="row">
+    <div class="col-12 my-2">
+        @{
+            if (Model.Families.Any())
+            {
+                <h1>Families</h1>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Photo</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Member count</th>
+                            <th scope="col">View this person in the family</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Families)
+                        {
+                            <tr>
+                                <td>
+                                    <a asp-controller="Family" asp-action="detail" asp-route-id="@item.Id">
+                                        <img class="personImageIndex" src="~/image/@item.Logo" />
+                                    </a>
+                                </td>
+                                <td><a asp-controller="Family" asp-action="Detail" asp-route-id="@item.Id"> @item.Name</a></td>
+                                <td><a asp-controller="Family" asp-action="Detail" asp-route-id="@item.Id">@item.Users.GroupBy(x => x.RelatedUserId).Select(x => x.First()).Count().ToString()</a></td>
+                                <td>
+                                    <a asp-controller="Family" asp-action="persondetail" asp-route-id="@Model.Person.Id" asp-route-familyId="@item.Id" class="btn btn-primary"><i class="fad fa-eye"></i></a>
+
+                                </td>
+
+                            </tr>
+                        }
+
+
+
+
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <h2 class="alert alert-warning">The person is not a member of any family</h2>
+            }
+        }
+
+
+
+
+
+
+        @if (TempData["noRole"] != null)
+        {
+            <div class="col-12 my-2">
+                <p class="alert alert-secondary">Person not found</p>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,105 @@
+﻿@{
+    ViewData["Title"] = "Family";
+}
+@model GtsTask3Famly.ViewModel.VM
+    <div class="row">
+        @if (TempData["addPerson"] != null)
+        {
+            <div class="col-12 my-2">
+                <p class="alert alert-success">New Person Added</p>
+            </div>
+        }
+        @if (TempData["editPerson"] != null)
+        {
+            <div class="col-12 my-2">
+                <p class="alert alert-success">Person Edited</p>
+            </div>
+        }
+        @if (TempData["removePerson"] != null)
+        {
+            <div class="col-12 my-2">
+                <p class="alert alert-danger">Person deleted</p>
+            </div>
+        }
+        @if (TempData["emailConfirm"] != null)
+        {
+            <div class="col-12 my-2">
+                <p class="alert alert-success">Your email successfully confirmed</p>
+            </div>
+        }
+        @if (TempData["realPerson"] != null)
+        {
+            <div class="col-12 my-2">
+                <p class="alert alert-danger">Person cannot be deleted.This person is real person</p>
+            </div>
+        }
+
+
+        <div class="col-12 mb-5">
+            <div class="d-flex justify-content-end">
+                <div>
+                    
+                    <a asp-action="newPerson" asp-controller="Home" class="btn btn-success">Add new person</a>
+                    <a asp-action="index" asp-controller="Family" class="btn btn-primary">My Family</a>
+                    @*<a asp-action="roles" class="btn btn-primary">Roles</a>*@
+                </div>
+            </div>
+
+
+        </div>
+        @{
+            <div class="col-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Photo</th>
+                            <th scope="col">Firstname</th>
+                            <th scope="col">Lastname</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Gender</th>
+                            <th scope="col">Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.People)
+                        {
+                            <tr>
+                                <td>
+                                    <a class="position-relative" asp-controller="home" asp-action="personDetail" asp-route-id="@item.Id">
+                                        <img class="personImageIndex" src="~/image/@item.Photo" />
+                                        @if (item.UserToPerson != null)
+                                        {
+                                            <i class="realuser realuser-1x fas fa-shield-check" title="This person is confirmed"></i>
+                                        }
+
+                                    </a>
+                                </td>
+                                <td><a asp-controller="home" asp-action="personDetail" asp-route-id="@item.Id"> @item.Firstname</a></td>
+                                <td><a asp-controller="home" asp-action="personDetail" asp-route-id="@item.Id">@item.LastName</a></td>
+                                <td>@item.Age</td>
+                                <td>@item.Gender.Name</td>
+                                <td>
+                                     <a asp-controller="home" asp-action="personDetail" asp-route-id="@item.Id" class="btn btn-success" title="View"><i class="fad fa-eye"></i></a>
+                                    <a asp-controller="home" asp-action="editPerson" asp-route-id="@item.Id" class="btn btn-warning" title="Edit"><i class="fad fa-pencil-ruler"></i></a>
+                                    <a asp-controller="home" asp-action="DeletePerson" asp-route-id="@item.Id" class="btn btn-danger usePopup" title="Delete"><i class="fad fa-trash-alt"></i></a>
+                                </td>
+
+                            </tr>
+                        }
+
+
+
+                    </tbody>
+                </table>
+                @if (TempData["noRole"] != null)
+                {
+                    <div class="col-12 my-2">
+                        <p class="alert alert-secondary">Person not found</p>
+                    </div>
+                }
+            </div>
+        }
+
+
+    </div>

@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+}
+@model Family
+<div class="row justify-content-center">
+    <div class="col-7">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-12">
+                    <div asp-validation-summary="All">
+
+                    </div>
+                </div>
+                <input type="hidden" id="@Model.Id" />
+                <div class="col-4 my-2">
+                    <label>Name</label>
+                    <input placeholder="Firstname" asp-for="@Model.Name" />
+                    <span class="text-danger" asp-validation-for="@Model.Name"></span>
+                </div>
+                <div class="col-8">
+
+                </div>
+                <div class="col-7 my-2">
+                    <div class="row">
+                        <div class="col-12 my-3">
+                            <label>Current Image</label>
+                            <input type="hidden" value="@Model.Logo" />
+                            <div id="currentProfilePhoto">
+                                <img src="~/image/@Model.Logo" />
+                            </div>
+                        </div>
+                        <div class="col-12 my-3">
+                            <label>Edit photo</label>
+                            <div id="profilePhoto">
+                                <img src="" />
+                            </div>
+                            <input class="d-none" asp-for="@Model.LogoFile" />
+                            <span class="w-25" id="addPhoto">Add photo</span>
+                            <span class="text-danger" asp-validation-for="LogoFile"></span>
+                        </div>
+                        <div class="col-12">
+                            <div class="row justify-content-end">
+                                <div class="col-4 my-2">
+                                    <input class="btn btn-success" type="submit" value="Edit" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+
+                </div>
+              
+               
+
+
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+
+
+

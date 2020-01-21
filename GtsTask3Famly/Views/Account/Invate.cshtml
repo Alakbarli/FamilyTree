@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "Invate";
+}
+
+@{
+    @if (TempData["invate"] != null)
+    {
+        <div class="col-12 my-2">
+            <p class="alert alert-success">Invate link has been sent to relative's email address.</p>
+        </div>
+    }
+    @if (ViewBag.Error != null)
+    {
+        <div class="col-12 my-2">
+            <p class="alert alert-danger">@ViewBag.Error</p>
+        </div>
+    }
+}
+@model GtsTask3Famly.ViewModel.InvateEmail
+<div class="row justify-content-center">
+    <div class="col-5">
+        <form method="post" class="px-4 py-3">
+            <input type="hidden" asp-for="PersonId" />
+            <input type="hidden" asp-for="FamilyId" />
+            <div class="form-group">
+                <label asp-for="Email">Email address</label>
+                <input type="email" class="form-control" asp-for="Email" placeholder="email@example.com">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Invate</button>
+        </form>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" asp-controller="home" asp-action="index">Go back</a>
+
+    </div>
+</div>
+

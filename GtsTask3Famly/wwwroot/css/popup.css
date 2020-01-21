@@ -1,0 +1,66 @@
+.Umy-popup{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 330px;
+    height: 200px;
+    padding: 15px 25px;
+    background-color: rgb(238, 238, 238);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: 0px 0px 5px 0px lightslategray;
+}
+
+.Umy-popup .Uclose{
+    cursor: pointer;
+   display: inline-block;
+   position: absolute;
+   left: 310px;
+   top:7px;
+    width: 100%;
+    color:gray;
+}
+.Umy-popup .Uicon{
+   color:red;
+   font-size: 50px;
+   text-align: center;
+   
+}
+.Umy-popup .Ucontent{
+    color:black;
+    font-weight: bold;
+    font-size: 15px;
+    text-align: center;
+    
+ }
+ .Umy-popup .Uaction{
+     margin-top: 15px;
+ display: flex;
+ justify-content: space-between;
+    
+ }
+ .Umy-popup .Uaction a{
+     border-radius: 5px;
+   padding: 5px 15px;
+   display: inline-block;
+   text-align: center;
+   text-decoration: none;
+}
+.Umy-popup .Uaction a:hover{
+   
+    text-decoration: none;
+ }
+ .Umy-popup .Uaction .Uno{
+     background-color: white;
+     color: black;
+     box-sizing: border-box;
+     border: 1px solid lightslategray;
+   
+}
+.Umy-popup .Uaction .Uyes{
+     
+   background-color: rgb(212, 5, 5);
+   color: white;
+}

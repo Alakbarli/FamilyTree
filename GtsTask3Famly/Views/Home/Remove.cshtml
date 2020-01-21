@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewData["Title"] = "Remove Person";
+}
+@model Person
+<div class="row">
+    <div class="col-12">
+        <p class="alert alert-danger">
+            Are you sure you want to delete @Model.LastName @Model.Firstname
+        </p>
+        <a class="btn btn-danger" asp-action="deletePerson" asp-route-id="@Model.Id">Yes</a>
+        <a class="btn btn-primary" asp-action="index">No</a>
+
+    </div>
+</div>
+
